@@ -28,7 +28,7 @@ CREATE TABLE `user` (
   `lastName` varchar(200) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
-  `incrementedKey` varchar(200) DEFAULT NULL,
+  `generatedKey` varchar(200) DEFAULT NULL,
   `picturePath` varchar(45) DEFAULT NULL,
   `userRoleId` int(11) DEFAULT NULL,
   PRIMARY KEY (`userId`),

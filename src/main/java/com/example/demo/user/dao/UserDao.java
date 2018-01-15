@@ -30,7 +30,7 @@ public class UserDao extends Dao<User> {
         User user = null;
         try (Session session = sessionFactoryHelper.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(User.class)
-                    .add(Restrictions.eq("incrementedKey", token));
+                    .add(Restrictions.eq("generatedKey", token));
 
             Object result = criteria.uniqueResult();
             if (result != null) {

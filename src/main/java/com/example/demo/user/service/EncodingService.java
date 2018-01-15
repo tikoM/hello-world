@@ -14,6 +14,10 @@ public class EncodingService {
             throw new IllegalStateException(e);
         }
         byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        return new String(hash);
+        StringBuilder sb = new StringBuilder();
+        for(byte oneByte : hash){
+            sb.append(Integer.toString((oneByte & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
     }
 }

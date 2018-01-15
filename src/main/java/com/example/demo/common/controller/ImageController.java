@@ -1,6 +1,5 @@
 package com.example.demo.common.controller;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ public class ImageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws IOException {
         File file = new File("src/main/resources/images/" + req.getParameter("path"));
         OutputStream out = resp.getOutputStream();
         FileInputStream in = new FileInputStream(file);

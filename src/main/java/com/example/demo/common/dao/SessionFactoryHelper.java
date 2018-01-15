@@ -18,10 +18,6 @@ public class SessionFactoryHelper {
         }
     }
 
-    /**
-     * A static method for other application to get SessionFactory object
-     * initialized in this helper class.
-     */
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
