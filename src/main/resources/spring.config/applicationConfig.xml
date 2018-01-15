@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="sessionFactoryHelper" class="com.example.demo.common.dao.SessionFactoryHelper"/>
+
+    <bean name="dao" class="com.example.demo.common.dao.Dao" abstract="true">
+        <constructor-arg ref="sessionFactoryHelper"/>
+    </bean>
+
+    <bean name="userDao" class="com.example.demo.user.dao.UserDao" parent="dao"/>
+
+    <bean name="userService" class="com.example.demo.user.service.UserServiceImpl">
+        <constructor-arg ref="userDao"/>
+        <property name="validationHelperService" ref="validationHelperService"/>
+    </bean>
+    <bean name="validationHelperService" class="com.example.demo.user.service.ValidationHelperService">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean name="messageDao" class="com.example.demo.message.dao.MessageDao" parent="dao"/>
+
+    <bean name="messageService" class="com.example.demo.message.service.MessageServiceImpl">
+        <constructor-arg ref="messageDao"/>
+        <constructor-arg ref="userService"/>
+    </bean>
+</beans>
