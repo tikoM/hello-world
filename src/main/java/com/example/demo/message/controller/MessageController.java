@@ -82,7 +82,7 @@ public class MessageController {
      * delete message( for admin)
      */
     @RequestMapping(value = "/deleteMessage", method = RequestMethod.POST)
-    public void deleteMessage(@RequestBody Message message, HttpServletRequest request) {
+    public void deleteMessage(HttpServletRequest request, @RequestBody Message message) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {

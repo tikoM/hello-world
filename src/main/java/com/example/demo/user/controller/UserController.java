@@ -131,7 +131,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/userDelete", method = RequestMethod.POST)
-    public void deleteUsers(@RequestBody HttpServletRequest request, HttpServletResponse response, User user) {
+    public void deleteUsers(HttpServletRequest request, HttpServletResponse response, @RequestBody User user) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
