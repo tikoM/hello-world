@@ -14,25 +14,21 @@ public class UserDao extends Dao<User> {
     }
 
     public User getUserByEmail(String email) {
-        Session session = sessionFactoryHelper.getSessionFactory().openSession();
         User user = null;
-        try {
+        try (Session session = sessionFactoryHelper.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(User.class)
                     .add(Restrictions.eq("email", email));
             Object result = criteria.uniqueResult();
             if (result != null) {
                 user = (User) result;
             }
-        } finally {
-            session.close();
         }
         return user;
     }
 
     public User getUserByToken(String token) {
-        Session session = sessionFactoryHelper.getSessionFactory().openSession();
         User user = null;
-        try {
+        try (Session session = sessionFactoryHelper.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(User.class)
                     .add(Restrictions.eq("incrementedKey", token));
 
@@ -40,16 +36,13 @@ public class UserDao extends Dao<User> {
             if (result != null) {
                 user = (User) result;
             }
-        } finally {
-            session.close();
         }
         return user;
     }
 
     public User getUserById(Integer id) {
-        Session session = sessionFactoryHelper.getSessionFactory().openSession();
         User user = null;
-        try {
+        try (Session session = sessionFactoryHelper.getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(User.class)
                     .add(Restrictions.eq("id", id));
 
@@ -57,8 +50,6 @@ public class UserDao extends Dao<User> {
             if (result != null) {
                 user = (User) result;
             }
-        } finally {
-            session.close();
         }
         return user;
     }

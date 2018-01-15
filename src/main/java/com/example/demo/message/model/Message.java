@@ -1,6 +1,5 @@
 package com.example.demo.message.model;
 
-import com.example.demo.role.model.Role;
 import com.example.demo.user.model.User;
 
 import javax.persistence.*;

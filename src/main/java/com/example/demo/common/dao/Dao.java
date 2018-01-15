@@ -24,7 +24,7 @@ public abstract class Dao<T> {
         try {
             session.save(object);
             tr.commit();
-        } catch (RuntimeException runtimeException) {
+        } catch (Exception runtimeException) {
             tr.rollback();
             throw runtimeException;
         } finally {

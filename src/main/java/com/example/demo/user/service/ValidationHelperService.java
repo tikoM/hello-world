@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 public class ValidationHelperService {
     private UserDao userDao;
+    private EncodingService encodingService;
 
 
     public boolean validatePassword(String password) {
@@ -25,7 +26,7 @@ public class ValidationHelperService {
         if (user == null) {
             return null;
         }
-        if (user.getPassword().equals(encodePassword(password))) {
+        if (user.getPassword().equals(encodingService.encodePassword(password))) {
             return user;
         } else return null;
     }
@@ -42,16 +43,7 @@ public class ValidationHelperService {
         this.userDao = userDao;
     }
 
-    String encodePassword(String password) {
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-256");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-        return Arrays.toString(hash);
+    public void setEncodingService(EncodingService encodingService) {
+        this.encodingService = encodingService;
     }
-
-    ;
 }

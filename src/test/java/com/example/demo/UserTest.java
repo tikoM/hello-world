@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.common.dao.SessionFactoryHelper;
 import com.example.demo.user.dao.UserDao;
 import com.example.demo.user.model.User;
+import com.example.demo.user.service.EncodingService;
 import com.example.demo.user.service.UserService;
 import com.example.demo.user.service.UserServiceImpl;
 import com.example.demo.user.service.ValidationHelperService;
@@ -25,7 +26,7 @@ public class UserTest {
         SessionFactoryHelper helper = mock(SessionFactoryHelper.class);
         when(helper.getSessionFactory()).thenReturn(sessionFactoryHelperTest.getSessionFactory());
         userService = new UserServiceImpl(new UserDao(helper));
-        userService.setValidationHelperService(new ValidationHelperService());
+        userService.setEncodingService(new EncodingService());
     }
 
     @Test

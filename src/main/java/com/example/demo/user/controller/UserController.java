@@ -37,7 +37,7 @@ public class UserController {
             User user = userService.createUser(file, firstName, lastName, password, email, null);
             try {
                 Cookie userCookie =
-                        new Cookie("user", user.getIncrementedKey());
+                        new Cookie("user", user.getGeneratedKey());
                 response.addCookie(userCookie);
                 response.sendRedirect("index.html");
             } catch (IOException e) {
@@ -64,10 +64,10 @@ public class UserController {
                       @RequestParam(value = "password") String password,
                       @RequestParam(value = "email") String email) {
         User user = validationHelperService.checkPassword(password, email);
-        if (user != null && user.getIncrementedKey() != null) {
+        if (user != null && user.getGeneratedKey() != null) {
             try {
                 Cookie userCookie =
-                        new Cookie("user", user.getIncrementedKey());
+                        new Cookie("user", user.getGeneratedKey());
                 response.addCookie(userCookie);
                 if (user.getRole().getId().equals(1)) {
                     response.sendRedirect("admin.html");
@@ -131,7 +131,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "/userDelete", method = RequestMethod.POST)
-    public void deleteUsers(@RequestBody User user) {
-        userService.deleteUser(user);
+    public void deleteUsers(@RequestBody HttpServletRequest request, HttpServletResponse response, User user) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user") && cookie.getValue() != null) {
+                    User currentUser = userService.getUserByTokenKey(cookie.getValue());
+                    if (currentUser.getRole().getId().equals(1)) {
+                        try {
+                            userService.deleteUser(user);
+                            response.sendRedirect("admin.html");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

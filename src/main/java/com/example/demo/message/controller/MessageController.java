@@ -5,6 +5,7 @@ import com.example.demo.message.service.MessageService;
 import com.example.demo.user.model.User;
 import com.example.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,22 +79,21 @@ public class MessageController {
     }
 
     /**
-     * returns all messages for admin
+     * delete message( for admin)
      */
     @RequestMapping(value = "/deleteMessage", method = RequestMethod.POST)
-    public List<Message> getAldeleteMessagelMessages(HttpServletRequest request) {
+    public void deleteMessage(@RequestBody Message message, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("user") && cookie.getValue() != null) {
                     User user = userService.getUserByTokenKey(cookie.getValue());
                     if (user.getRole().getId().equals(1)) {
-                        return messageService.getAllMessages();
+                        messageService.deleteMessage(message);
                     }
                 }
             }
         }
-        return null;
     }
 
 

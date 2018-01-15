@@ -10,13 +10,14 @@
     </bean>
 
     <bean name="userDao" class="com.example.demo.user.dao.UserDao" parent="dao"/>
-
+    <bean name="encodingService" class="com.example.demo.user.service.EncodingService"/>
     <bean name="userService" class="com.example.demo.user.service.UserServiceImpl">
         <constructor-arg ref="userDao"/>
-        <property name="validationHelperService" ref="validationHelperService"/>
+        <property name="encodingService" ref="encodingService"/>
     </bean>
     <bean name="validationHelperService" class="com.example.demo.user.service.ValidationHelperService">
         <property name="userDao" ref="userDao"/>
+        <property name="encodingService" ref="encodingService"/>
     </bean>
 
     <bean name="messageDao" class="com.example.demo.message.dao.MessageDao" parent="dao"/>

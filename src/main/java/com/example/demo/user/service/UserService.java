@@ -62,6 +62,6 @@ public interface UserService {
      */
     List<User> getAllUsers(@NotNull String key);
 
-    void setValidationHelperService(ValidationHelperService validationHelperService);
+    void setEncodingService(EncodingService encodingService);
 
 }

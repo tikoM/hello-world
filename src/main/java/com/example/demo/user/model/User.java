@@ -20,7 +20,7 @@ public class User {
 
     private String email;
 
-    private String incrementedKey;
+    private String generatedKey;
 
     private String picturePath;
 
@@ -68,12 +68,12 @@ public class User {
         this.email = email;
     }
 
-    public String getIncrementedKey() {
-        return incrementedKey;
+    public String getGeneratedKey() {
+        return generatedKey;
     }
 
-    public void setIncrementedKey(String incrementedKey) {
-        this.incrementedKey = incrementedKey;
+    public void setGeneratedKey(String generatedKey) {
+        this.generatedKey = generatedKey;
     }
 
     public String getPicturePath() {

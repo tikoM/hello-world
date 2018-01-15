@@ -15,7 +15,7 @@ import static com.example.demo.common.service.FileUploadManager.createFile;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-    private ValidationHelperService validationHelperService;
+    private EncodingService encodingService;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -29,10 +29,10 @@ public class UserServiceImpl implements UserService {
         user.setLastName(lastName);
         user.setEmail(email);
         String photoPath = null;
-        String encodedPassword = validationHelperService.encodePassword(password);
-        user.setPassword(String.valueOf(encodedPassword));
+        String encodedPassword = encodingService.encodePassword(password);
+        user.setPassword(encodedPassword);
         String uniqueID = UUID.randomUUID().toString();
-        user.setIncrementedKey(uniqueID);
+        user.setGeneratedKey(uniqueID);
         if (file != null) {
             try {
                 photoPath = createFile(file);
@@ -78,14 +78,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers(@NotNull String key) {
-        if(getUserByTokenKey(key).getRole().getId().equals(1)){
+        if (getUserByTokenKey(key).getRole().getId().equals(1)) {
             return userDao.getAll(User.class);
-        }else {
+        } else {
             return null;
         }
     }
 
-    public void setValidationHelperService(ValidationHelperService validationHelperService) {
-        this.validationHelperService = validationHelperService;
+    public void setEncodingService(EncodingService encodingService) {
+        this.encodingService = encodingService;
     }
 }
